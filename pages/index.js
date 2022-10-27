@@ -9,10 +9,10 @@ export default function Home() {
   const [imgSrc, setImgSrc] = React.useState(null);
   const [cameraPosition, setCameraPosition] = React.useState('user');
 
-  const capture = React.useCallback(() => {
+  const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-  }, [webcamRef, setImgSrc]);
+  };
 
   const videoConstraints = {
     facingMode: cameraPosition
