@@ -7,11 +7,16 @@ import React from 'react';
 export default function Home() {
   const webcamRef = React.useRef(null);
   const [imgSrc, setImgSrc] = React.useState(null);
+  const [cameraPosition, setCameraPosition] = React.useState('user');
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
   }, [webcamRef, setImgSrc]);
+
+  const videoConstraints = {
+    facingMode: cameraPosition
+  }
 
   return (
     <>
@@ -19,8 +24,10 @@ export default function Home() {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
       />
       <button onClick={capture}>Capture photo</button>
+      <button onClick={() => setCameraPosition({ exact: "environment" })}>Change camera</button>
       {imgSrc && (
         <img
           src={imgSrc}
